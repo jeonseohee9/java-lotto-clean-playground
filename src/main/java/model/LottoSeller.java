@@ -12,7 +12,7 @@ public class LottoSeller {
     }
 
     public Lottos purchase(Money money) {
-        int count = money.getAmount();
+        int count = money.getTicketCount();
         List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottoList.add(generator.generate());

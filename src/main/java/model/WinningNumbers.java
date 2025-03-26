@@ -10,9 +10,8 @@ public class WinningNumbers {
         this.winningNumbers = new Lotto(numbers);
     }
 
-    public int matchCount(Lotto purchasedLotto) {
-        return (int) purchasedLotto.getNumbers().stream()
-                .filter(winningNumbers.getNumbers()::contains)
-                .count();
+    public boolean contains(int number) {
+        return winningNumbers.contains(number);
     }
+
 }

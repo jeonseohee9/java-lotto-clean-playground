@@ -10,7 +10,7 @@ public class RandomLottoGenerator implements LottoGenerator {
     @Override
     public Lotto generate() {
         List<Integer> allNumberList = new ArrayList<>();
-        for (int i = MIN; i <= MAX; i++) {
+        for (int i = LOTTO_MIN; i <= LOTTO_MAX; i++) {
             allNumberList.add(i);
         }
         Collections.shuffle(allNumberList);

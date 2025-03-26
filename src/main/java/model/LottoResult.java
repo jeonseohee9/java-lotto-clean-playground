@@ -1,5 +1,8 @@
 package model;
 
+import static model.LottoConstants.MAX_MATCH;
+import static model.LottoConstants.MIN_MATCH;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +29,9 @@ public class LottoResult {
         }
     }
 
-    private void recordRankIfMath(Lotto lotto, WinningNumbers winningNumbersNumber) {
-        int matchCount = winningNumbersNumber.matchCount(lotto);
-        if (matchCount < 3 || matchCount > 6) {
+    private void recordRankIfMath(Lotto lotto, WinningNumbers winningNumbers) {
+        int matchCount = lotto.countMatchWith(winningNumbers);
+        if (matchCount < MIN_MATCH || matchCount > MAX_MATCH) {
             return;
         }
         Rank rank = Rank.findByMatchCount(matchCount);

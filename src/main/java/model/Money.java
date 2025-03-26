@@ -17,7 +17,7 @@ public class Money {
         }
     }
 
-    public int getAmount() {
+    public int getTicketCount() {
         return amount / PRICE_PER_LOTTO;
     }
 

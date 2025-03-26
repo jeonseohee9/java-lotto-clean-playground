@@ -43,7 +43,7 @@ public class InputHandler {
             throw new IllegalArgumentException("당첨 번호는 중복될 수 없습니다.");
         }
 
-        if (winningNumbers.stream().anyMatch(number -> number < MIN || number > MAX)){
+        if (winningNumbers.stream().anyMatch(number -> number < LOTTO_MIN || number > LOTTO_MAX)){
             throw new IllegalArgumentException("번호는 1부터 45 사이여야 합니다.");
         }
     }
