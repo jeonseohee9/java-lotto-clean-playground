@@ -20,7 +20,7 @@ public enum Rank {
         return Arrays.stream(values())
                 .filter(rank -> rank.matchCount == matchCount)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("해당 matchCount에 해당하는 Rank가 없습니다: " + matchCount));
+                .orElseThrow(() -> new IllegalArgumentException("matchCount에 해당하는 Rank가 없습니다: " + matchCount));
     }
 
     public int getPrize() {

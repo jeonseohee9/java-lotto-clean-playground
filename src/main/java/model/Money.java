@@ -22,9 +22,6 @@ public class Money {
     }
 
     public double calculateProfitRate(int prize) {
-        if (amount == 0) {
-            return 0.0;
-        }
         return (double) prize / amount;
     }
 }

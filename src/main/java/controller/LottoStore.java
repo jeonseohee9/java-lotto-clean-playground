@@ -1,10 +1,12 @@
 package controller;
 
+import java.util.List;
+import model.Lotto;
+import model.LottoGenerator;
+import model.Lottos;
 import view.InputHandler;
 import view.OutputHandler;
-import model.LottoSeller;
 import model.WinningNumbers;
-import model.Lottos;
 import model.LottoResult;
 import model.Money;
 import model.RandomLottoGenerator;
@@ -12,12 +14,14 @@ import model.RandomLottoGenerator;
 public class LottoStore {
     public static void main(String[] args) {
         Money money = InputHandler.inputMoney();
-        LottoSeller lottoSeller = new LottoSeller(new RandomLottoGenerator());
-        Lottos lottos = lottoSeller.purchase(money);
+        LottoGenerator generator = new RandomLottoGenerator();
+        List<Lotto> lottoList = generator.generate(money.getTicketCount());
+        Lottos lottos = new Lottos(lottoList);
         OutputHandler.printPurchaseResult(lottos);
 
         WinningNumbers winningNumbers = InputHandler.inputWinningLotto();
-        LottoResult lottoResults = new LottoResult(lottos, winningNumbers);
-        OutputHandler.printStatistics(lottoResults, money);
+        LottoResult result = new LottoResult(lottos, winningNumbers);
+
+        OutputHandler.printStatistics(result, money);
     }
 }

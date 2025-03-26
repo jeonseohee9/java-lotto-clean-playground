@@ -1,20 +1,26 @@
 package model;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Lottos {
 
-    private final List<Lotto> lottoList;
+    private final List<Lotto> lottos;
 
-    public Lottos(List<Lotto> lottoList) {
-        this.lottoList = lottoList;
+    public Lottos(List<Lotto> lottos) {
+        this.lottos = lottos;
     }
 
-    public List<Lotto> getLottoList() {
-        return lottoList;
+    public int size() {
+        return lottos.size();
     }
 
-    public int getLottoListSize() {
-        return lottoList.size();
+    public List<Lotto> getValues() {
+        return lottos;
     }
+
+    public Stream<Lotto> stream() {
+        return lottos.stream();
+    }
+
 }

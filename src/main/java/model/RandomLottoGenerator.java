@@ -8,13 +8,21 @@ import static model.LottoConstants.*;
 public class RandomLottoGenerator implements LottoGenerator {
 
     @Override
-    public Lotto generate() {
-        List<Integer> allNumberList = new ArrayList<>();
-        for (int i = LOTTO_MIN; i <= LOTTO_MAX; i++) {
-            allNumberList.add(i);
+    public List<Lotto> generate(int count) {
+        List<Lotto> result = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            result.add(generateOne());
         }
-        Collections.shuffle(allNumberList);
-        List<Integer> selected = new ArrayList<>(allNumberList.subList(0, NUMBER_COUNT));
+        return result;
+    }
+
+    private Lotto generateOne() {
+        List<Integer> allNumbers = new ArrayList<>();
+        for (int i = LOTTO_MIN; i <= LOTTO_MAX; i++) {
+            allNumbers.add(i);
+        }
+        Collections.shuffle(allNumbers);
+        List<Integer> selected = new ArrayList<>(allNumbers.subList(0, NUMBER_COUNT));
         Collections.sort(selected);
         return new Lotto(selected);
     }

@@ -2,8 +2,8 @@ package view;
 
 import java.util.List;
 import model.Lotto;
-import model.Lottos;
 import model.LottoResult;
+import model.Lottos;
 import model.Money;
 import model.Rank;
 import model.RankResult;
@@ -11,8 +11,8 @@ import model.RankResult;
 public class OutputHandler {
 
     public static void printPurchaseResult(Lottos lottos) {
-        System.out.println(lottos.getLottoListSize() + "개를 구매했습니다.");
-        for (Lotto lotto : lottos.getLottoList()) {
+        System.out.println(lottos.size() + "개를 구매했습니다.");
+        for (Lotto lotto : lottos.getValues()) {
             System.out.println(lotto.getNumbers());
         }
     }
@@ -30,6 +30,7 @@ public class OutputHandler {
         int totalPrize = lottoResult.getTotalPrize();
         double profitRate = purchaseAmount.calculateProfitRate(totalPrize);
 
-        System.out.printf("총 수익률은 %.2f입니다 \n", profitRate);
+        System.out.printf("총 수익률은 %.2f입니다\n", profitRate);
     }
 }
+
