@@ -12,7 +12,7 @@ public class OutputHandler {
 
     public static void printPurchaseResult(Lottos lottos) {
         System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (Lotto lotto : lottos.getValues()) {
+        for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto.getNumbers());
         }
     }

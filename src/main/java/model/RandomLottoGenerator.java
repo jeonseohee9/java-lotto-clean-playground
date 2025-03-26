@@ -11,12 +11,12 @@ public class RandomLottoGenerator implements LottoGenerator {
     public List<Lotto> generate(int count) {
         List<Lotto> result = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            result.add(generateOne());
+            result.add(generateOneLottoTicket());
         }
         return result;
     }
 
-    private Lotto generateOne() {
+    private Lotto generateOneLottoTicket() {
         List<Integer> allNumbers = new ArrayList<>();
         for (int i = LOTTO_MIN; i <= LOTTO_MAX; i++) {
             allNumbers.add(i);
