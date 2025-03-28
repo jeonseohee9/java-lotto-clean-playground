@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 import model.Lotto;
 import model.Money;
 
-import static model.LottoConstants.*;
-
 public class InputHandler {
 
     private static final Scanner scanner = new Scanner(System.in);

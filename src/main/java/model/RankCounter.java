@@ -30,7 +30,6 @@ public class RankCounter {
         increase(rank);
     }
 
-
     public long getTotalPrize() {
         return rankCounts.entrySet().stream()
                 .mapToLong(entry -> entry.getKey().getPrize() * entry.getValue())
