@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +43,4 @@ public enum Rank {
     public long getPrize() {
         return prize;
     }
-
-
 }
