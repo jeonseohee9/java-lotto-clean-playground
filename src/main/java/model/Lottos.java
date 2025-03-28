@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Lottos {
 
@@ -11,16 +10,15 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public int size() {
-        return lottos.size();
-    }
-
     public List<Lotto> getLottos() {
-        return lottos;
+        return List.copyOf(lottos);
     }
 
-    public Stream<Lotto> stream() {
-        return lottos.stream();
+    public RankCounter countRanks(Lotto winningLotto) {
+        RankCounter counter = new RankCounter();
+        for (Lotto lotto : lottos) {
+            counter.count(lotto, winningLotto);
+        }
+        return counter;
     }
-
 }

@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum Rank {
 
@@ -10,25 +12,38 @@ public enum Rank {
     SIX_MATCH(6, 2000000000);
 
     private final int matchCount;
-    private final int prize;
+    private final long prize;
+    private static final Map<Integer, Rank> matchCountToRankMap = new HashMap<>();
 
-    Rank(int matchCount, int prize) {
+    static {
+        for (Rank rank : values()) {
+            matchCountToRankMap.put(rank.matchCount, rank);
+        }
+    }
+
+    Rank(int matchCount, long prize) {
         this.matchCount = matchCount;
         this.prize = prize;
     }
 
-    public static Rank findByMatchCount(int matchCount) {
-        return Arrays.stream(values())
-                .filter(rank -> rank.matchCount == matchCount)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("matchCount에 해당하는 Rank가 없습니다: " + matchCount));
+    public static boolean isValidMatchCount(int matchCount) {
+        return matchCountToRankMap.containsKey(matchCount);
     }
 
-    public int getPrize() {
-        return prize;
+    public static Rank findByMatchCount(int matchCount) {
+        if (!isValidMatchCount(matchCount)) {
+            throw new IllegalArgumentException("matchCount에 해당하는 Rank가 없습니다: " + matchCount);
+        }
+        return matchCountToRankMap.get(matchCount);
     }
 
     public int getMatchCount() {
         return matchCount;
     }
+
+    public long getPrize() {
+        return prize;
+    }
+
+
 }

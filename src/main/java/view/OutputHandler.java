@@ -1,36 +1,33 @@
 package view;
 
 import java.util.List;
+import java.util.Map;
 import model.Lotto;
-import model.LottoResult;
-import model.Lottos;
 import model.Money;
 import model.Rank;
-import model.RankResult;
+import model.RankCounter;
 
 public class OutputHandler {
 
-    public static void printPurchaseResult(Lottos lottos) {
+    public static void printPurchaseResult(List<Lotto> lottos) {
         System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (Lotto lotto : lottos.getLottos()) {
+        for (Lotto lotto : lottos) {
             System.out.println(lotto.getNumbers());
         }
     }
 
-    public static void printStatistics(LottoResult lottoResult, Money purchaseAmount) {
+    public static void printStatistics(RankCounter counter, Money money) {
         System.out.println("당첨 통계\n---------");
-        List<RankResult> rankResults = lottoResult.getRankResult();
 
-        for (RankResult rankResult : rankResults) {
-            Rank rank = rankResult.getRank();
-            int count = rankResult.getCount();
-            System.out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrize() + "원)- " + count + "개");
+        Map<Rank, Integer> rankCounts = counter.getRankCounts();
+        for (Rank rank : Rank.values()) {
+            int count = rankCounts.get(rank);
+            System.out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrize() + "원) - " + count + "개");
         }
 
-        int totalPrize = lottoResult.getTotalPrize();
-        double profitRate = purchaseAmount.calculateProfitRate(totalPrize);
-
-        System.out.printf("총 수익률은 %.2f입니다\n", profitRate);
+        long totalPrize = counter.getTotalPrize();
+        double profitRate = money.calculateRate(totalPrize);
+        System.out.printf("총 수익률은 %.2f입니다%n", profitRate);
     }
 }
 
