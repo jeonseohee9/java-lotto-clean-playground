@@ -1,11 +1,11 @@
 package model;
 
+import static model.LottoConstants.LOTTO_MAX;
+import static model.LottoConstants.LOTTO_MIN;
+
 import java.util.Objects;
 
 public class LottoNumber {
-
-    private static final int MIN = 1;
-    private static final int MAX = 45;
 
     private final int number;
 
@@ -15,7 +15,7 @@ public class LottoNumber {
     }
 
     private void validate(int number) {
-        if (number < MIN || number > MAX) {
+        if (number < LOTTO_MIN || number > LOTTO_MAX) {
             throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
         }
     }

@@ -1,6 +1,6 @@
 package model;
 
-import static model.LottoConstants.*;
+import static model.LottoConstants.NUMBER_COUNT;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 public class Lotto {
-
-    private static final int LOTTO_SIZE = 6;
 
     private final List<LottoNumber> numbers;
 
@@ -19,12 +17,12 @@ public class Lotto {
     }
 
     private void validate(List<LottoNumber> numbers) {
-        if (numbers.size() != LOTTO_SIZE) {
+        if (numbers.size() != NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
 
         Set<LottoNumber> uniqueNumbers = new HashSet<>(numbers);
-        if (uniqueNumbers.size() != LOTTO_SIZE) {
+        if (uniqueNumbers.size() != NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }

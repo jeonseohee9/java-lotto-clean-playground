@@ -5,13 +5,15 @@ import java.util.Map;
 
 public enum Rank {
 
-    THREE_MATCH(3, 5000),
-    FOUR_MATCH(4, 50000),
-    FIVE_MATCH(5, 1500000),
-    SIX_MATCH(6, 2000000000);
+    THREE_MATCH(3, 5000,1),
+    FOUR_MATCH(4, 50000,2),
+    FIVE_MATCH(5, 1500000,3),
+    SIX_MATCH(6, 2000000000,4);
 
     private final int matchCount;
     private final long prize;
+    private final int order;
+
     private static final Map<Integer, Rank> matchCountToRankMap = new HashMap<>();
 
     static {
@@ -20,9 +22,10 @@ public enum Rank {
         }
     }
 
-    Rank(int matchCount, long prize) {
+    Rank(int matchCount, long prize, int order) {
         this.matchCount = matchCount;
         this.prize = prize;
+        this.order = order;
     }
 
     public static boolean isValidMatchCount(int matchCount) {
@@ -39,6 +42,8 @@ public enum Rank {
     public int getMatchCount() {
         return matchCount;
     }
+
+    public int getOrder() { return order; }
 
     public long getPrize() {
         return prize;

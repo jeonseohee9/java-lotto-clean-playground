@@ -1,7 +1,9 @@
 package view;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import model.Lotto;
 import model.Money;
 import model.Rank;
@@ -20,8 +22,15 @@ public class OutputHandler {
         System.out.println("당첨 통계\n---------");
 
         Map<Rank, Integer> rankCounts = counter.getRankCounts();
-        for (Rank rank : Rank.values()) {
-            int count = rankCounts.get(rank);
+
+        List<Rank> sortedRanks = Rank.values().length == rankCounts.size()
+                ? List.of(Rank.values())
+                : rankCounts.keySet().stream()
+                        .sorted(Comparator.comparingInt(Rank::getOrder))
+                        .collect(Collectors.toList());
+
+        for (Rank rank : sortedRanks) {
+            int count = rankCounts.getOrDefault(rank, 0);
             System.out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrize() + "원) - " + count + "개");
         }
 
