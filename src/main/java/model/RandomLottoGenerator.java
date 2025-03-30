@@ -30,8 +30,10 @@ public class RandomLottoGenerator implements LottoGenerator {
     private Lotto generateOneLottoTicket() {
         List<Integer> copy = new ArrayList<>(ALL_NUMBERS);
         Collections.shuffle(copy);
-        List<Integer> selected = new ArrayList<>(copy.subList(0, NUMBER_COUNT));
-        Collections.sort(selected);
+        List<LottoNumber> selected = copy.subList(0, NUMBER_COUNT).stream()
+                .map(LottoNumber::new)
+                .sorted((a, b) -> Integer.compare(a.getNumber(), b.getNumber()))
+                .toList();
         return new Lotto(selected);
     }
 }

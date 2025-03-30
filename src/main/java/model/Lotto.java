@@ -3,40 +3,39 @@ package model;
 import static model.LottoConstants.*;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Lotto {
 
-    private final List<Integer> numbers;
+    private static final int LOTTO_SIZE = 6;
 
-    public Lotto(List<Integer> numbers) {
+    private final List<LottoNumber> numbers;
+
+    public Lotto(List<LottoNumber> numbers) {
         validate(numbers);
         this.numbers = numbers;
     }
 
-    private void validate(List<Integer> numbers) {
-        if (numbers.size() != NUMBER_COUNT) {
-            throw new IllegalArgumentException("로또 번호는 " + NUMBER_COUNT + "개여야 합니다.");
+    private void validate(List<LottoNumber> numbers) {
+        if (numbers.size() != LOTTO_SIZE) {
+            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
-        if (numbers.stream().distinct().count() != NUMBER_COUNT) {
+
+        Set<LottoNumber> uniqueNumbers = new HashSet<>(numbers);
+        if (uniqueNumbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
-        if (numbers.stream().anyMatch(n -> n < LOTTO_MIN || n > LOTTO_MAX)) {
-            throw new IllegalArgumentException(LOTTO_MIN + " ~ " + LOTTO_MAX + " 사이의 숫자만 가능합니다.");
-        }
     }
 
-    public int countMatchWith(Lotto other) {
-        return (int) numbers.stream()
-                .filter(other::contains)
-                .count();
-    }
-
-    public boolean contains(int number) {
-        return numbers.contains(number);
-    }
-
-    public List<Integer> getNumbers() {
+    public List<LottoNumber> getNumbers() {
         return Collections.unmodifiableList(numbers);
+    }
+
+    public long countMatch(Lotto winningLotto) {
+        return numbers.stream()
+                .filter(winningLotto.getNumbers()::contains)
+                .count();
     }
 }

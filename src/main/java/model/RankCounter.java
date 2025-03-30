@@ -18,7 +18,7 @@ public class RankCounter {
     }
 
     public void count(Lotto purchased, Lotto winning) {
-        int matchCount = purchased.countMatchWith(winning);
+        int matchCount = (int) purchased.countMatch(winning);
         increaseByMatchCount(matchCount);
     }
 
