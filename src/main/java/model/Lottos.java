@@ -1,6 +1,8 @@
 package model;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class Lottos {
 
@@ -10,15 +12,39 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public List<Lotto> getLottos() {
-        return List.copyOf(lottos);
+    public Map<Rank, Integer> countResult(WinningLotto winningLotto) {
+        Map<Rank, Integer> result = initializeRankMap();
+
+        for (Lotto lotto : lottos) {
+            Rank rank = winningLotto.match(lotto);
+            updateResult(result, rank);
+        }
+
+        return result;
     }
 
-    public RankCounter countRanks(Lotto winningLotto) {
-        RankCounter counter = new RankCounter();
-        for (Lotto lotto : lottos) {
-            counter.count(lotto, winningLotto);
+    private Map<Rank, Integer> initializeRankMap() {
+        Map<Rank, Integer> result = new EnumMap<>(Rank.class);
+        for (Rank rank : Rank.values()) {
+            result.put(rank, 0);
         }
-        return counter;
+        return result;
+    }
+
+    private void updateResult(Map<Rank, Integer> result, Rank rank) {
+        if (rank == Rank.NONE) {
+            return;
+        }
+        result.put(rank, result.get(rank) + 1);
+    }
+
+    public long calculateTotalPrize(WinningLotto winningLotto) {
+        return countResult(winningLotto).entrySet().stream()
+                .mapToLong(e -> e.getKey().getPrize() * e.getValue())
+                .sum();
+    }
+
+    public List<Lotto> getLottos() {
+        return List.copyOf(lottos);
     }
 }

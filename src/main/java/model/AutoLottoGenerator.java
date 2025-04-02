@@ -6,7 +6,7 @@ import java.util.List;
 
 import static model.LottoConstants.*;
 
-public class RandomLottoGenerator implements LottoGenerator {
+public class AutoLottoGenerator {
 
     private static final List<Integer> ALL_NUMBERS;
 
@@ -18,7 +18,6 @@ public class RandomLottoGenerator implements LottoGenerator {
         ALL_NUMBERS = Collections.unmodifiableList(numbers);
     }
 
-    @Override
     public List<Lotto> generate(int count) {
         List<Lotto> result = new ArrayList<>();
         for (int i = 0; i < count; i++) {

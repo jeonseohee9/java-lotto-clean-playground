@@ -27,13 +27,13 @@ public class Lotto {
         }
     }
 
-    public List<LottoNumber> getNumbers() {
-        return Collections.unmodifiableList(numbers);
-    }
-
     public long countMatch(Lotto winningLotto) {
         return numbers.stream()
                 .filter(winningLotto.getNumbers()::contains)
                 .count();
+    }
+
+    public List<LottoNumber> getNumbers() {
+        return Collections.unmodifiableList(numbers);
     }
 }
