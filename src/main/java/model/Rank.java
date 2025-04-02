@@ -7,7 +7,7 @@ public enum Rank {
     THREE_MATCH(3,false, 5000,1),
     FOUR_MATCH(4,false, 50000,2),
     FIVE_MATCH(5,false, 1500000,3),
-    FIVE_MATCH_BONUS(5, true, 30_000_000, 4),
+    FIVE_MATCH_BONUS(5, true, 30000000, 4),
     SIX_MATCH(6,false, 2000000000,5),
     NONE(0, false, 0, 0);
 
