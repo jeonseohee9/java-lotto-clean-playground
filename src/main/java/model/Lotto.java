@@ -1,13 +1,13 @@
 package model;
 
-import static model.LottoConstants.NUMBER_COUNT;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Lotto {
+
+    private static final int NUMBER_COUNT = 6;
 
     private final List<LottoNumber> numbers;
 

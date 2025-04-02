@@ -1,7 +1,5 @@
 package model;
 
-import static model.LottoConstants.*;
-
 public class Money {
 
     private static final int UNIT = 1000;

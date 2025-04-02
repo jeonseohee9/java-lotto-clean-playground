@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class WinningLottoTest {
 
     @Test
-    void 보너스_없을_때_정확히_일치하는_등수_반환() {
+    void 일치하는_등수_반환_보너스는_틀린경우() {
         Lotto winning = new Lotto(List.of(
                 new LottoNumber(1), new LottoNumber(2),
                 new LottoNumber(3), new LottoNumber(4),
@@ -30,7 +30,7 @@ public class WinningLottoTest {
     }
 
     @Test
-    void 보너스까지_맞으면_2등() {
+    void 당첨번호_5개일치_보너스_맞은경우_2등이어야함() {
         WinningLotto winningLotto = new WinningLotto(
                 new Lotto(List.of(
                         new LottoNumber(1), new LottoNumber(2),

@@ -1,11 +1,11 @@
 package model;
 
-import static model.LottoConstants.LOTTO_MAX;
-import static model.LottoConstants.LOTTO_MIN;
-
 import java.util.Objects;
 
 public class LottoNumber {
+
+    private static final int LOTTO_MIN=1;
+    private static final int LOTTO_MAX=45;
 
     private final int number;
 

@@ -1,3 +1,4 @@
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -16,7 +17,7 @@ public class LottoTest {
     }
 
     @Test
-    void countMatch_정확히_일치하는_숫자_개수_반환() {
+    void countMatch_정확히_일치하는_숫자_개수_반환한다() {
         Lotto lotto1 = new Lotto(toLottoNumbers(1, 2, 3, 4, 5, 6));
         Lotto lotto2 = new Lotto(toLottoNumbers(1, 2, 3, 7, 8, 9));
 
@@ -24,20 +25,23 @@ public class LottoTest {
     }
 
     @Test
-    void 로또_번호가_6개_아니면_예외() {
+    void 로또_번호가_6개_아니면_예외처리한다() {
         assertThrows(IllegalArgumentException.class,
-                () -> new Lotto(toLottoNumbers(1, 2, 3, 4, 5))); // 5개
+                () -> new Lotto(toLottoNumbers(1, 2, 3, 4, 5)));
     }
 
     @Test
-    void 로또_번호에_중복이_있으면_예외() {
+    void 로또_번호에_중복이_있으면_예외처리한다() {
         assertThrows(IllegalArgumentException.class,
-                () -> new Lotto(toLottoNumbers(1, 1, 2, 3, 4, 5))); // 중복
+                () -> new Lotto(toLottoNumbers(1, 1, 2, 3, 4, 5)));
     }
 
     @Test
-    void 로또_번호가_1에서_45를_벗어나면_예외() {
-        assertThrows(IllegalArgumentException.class,
-                () -> new Lotto(toLottoNumbers(1, 2, 3, 4, 5, 46))); // 46은 범위 초과
+    void 로또_번호가_1에서_45를_벗어나면_예외처리한다() {
+        assertThatThrownBy(() -> new LottoNumber(0))
+                .isInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> new LottoNumber(46))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

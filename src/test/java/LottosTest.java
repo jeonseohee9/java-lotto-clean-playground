@@ -21,7 +21,7 @@ public class LottosTest {
             "'1,2,3,4,44,45', FOUR_MATCH",
             "'1,2,3,43,44,45', THREE_MATCH"
     })
-    void 등수_정확히_판별() {
+    void 등수_정확히_판별한다() {
         Lotto winning = new Lotto(List.of(
                 new LottoNumber(1), new LottoNumber(2),
                 new LottoNumber(3), new LottoNumber(4),

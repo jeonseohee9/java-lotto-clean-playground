@@ -48,10 +48,9 @@ public class InputHandler {
         String line = scanner.nextLine();
         try {
             List<LottoNumber> numbers = Arrays.stream(line.split(","))
-                    .map(String::trim)
-                    .map(Integer::parseInt)
-                    .map(LottoNumber::new)
+                    .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
                     .collect(Collectors.toList());
+
             return new Lotto(numbers);
         } catch (Exception e) {
             System.out.println("올바른 형식으로 다시 입력해주세요.");
