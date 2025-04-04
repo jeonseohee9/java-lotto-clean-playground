@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Arrays;
-
 public enum Rank {
 
     THREE_MATCH(3,false, 5000,1),
@@ -15,7 +13,6 @@ public enum Rank {
     private final long prize;
     private final int order;
     private final boolean matchBonus;
-
 
     Rank(int matchCount, boolean matchBonus, long prize, int order) {
         this.matchCount = matchCount;

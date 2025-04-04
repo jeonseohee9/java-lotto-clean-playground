@@ -24,7 +24,7 @@ public class InputHandler {
         try {
             return new Money(Long.parseLong(input.trim()));
         } catch (Exception e) {
-            System.out.println("입력값: \"" + input + "\" → 올바른 금액을 입력해주세요.");
+            System.out.println("입력값: " + input + " → 올바른 금액을 입력해주세요.");
             return inputMoney();
         }
     }
@@ -35,7 +35,7 @@ public class InputHandler {
         try {
             return Integer.parseInt(input.trim());
         } catch (Exception e) {
-            System.out.println("입력값: \"" + input + "\" → 올바른 숫자를 입력해주세요.");
+            System.out.println("입력값: " + input + " → 올바른 숫자를 입력해주세요.");
             return inputManualCount();
         }
     }
@@ -59,7 +59,7 @@ public class InputHandler {
                     .collect(Collectors.toList());
             return new Lotto(numbers);
         } catch (Exception e) {
-            System.out.println("입력값: \"" + line + "\" → 올바른 형식으로 다시 입력해주세요.");
+            System.out.println("입력값: " + line + " → 올바른 형식으로 다시 입력해주세요.");
             return readValidLotto();
         }
     }
@@ -73,7 +73,7 @@ public class InputHandler {
                     .map(s -> Integer.parseInt(s.trim()))
                     .toList();
         } catch (Exception e) {
-            System.out.println("입력값: \"" + line + "\" → 다시 올바르게 입력해주세요.");
+            System.out.println("입력값: " + line + " → 다시 올바르게 입력해주세요.");
             return inputWinningLotto();
         }
     }
@@ -84,7 +84,7 @@ public class InputHandler {
         try {
             return Integer.parseInt(input.trim());
         } catch (Exception e) {
-            System.out.println("입력값: \"" + input + "\" → 다시 숫자를 입력해주세요.");
+            System.out.println("입력값: " + input + " → 다시 숫자를 입력해주세요.");
             return inputBonusNumber();
         }
     }

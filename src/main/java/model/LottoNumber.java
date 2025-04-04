@@ -7,9 +7,10 @@ import java.util.Objects;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
-    private static final int LOTTO_MIN=1;
-    private static final int LOTTO_MAX=45;
+    private static final int LOTTO_MIN = 1;
+    private static final int LOTTO_MAX = 45;
     private static final Map<Integer, LottoNumber> CACHE;
+    private final int number;
 
     static {
         Map<Integer, LottoNumber> temp = new HashMap<>();
@@ -19,8 +20,6 @@ public class LottoNumber implements Comparable<LottoNumber> {
         CACHE = Collections.unmodifiableMap(temp);
     }
 
-    private final int number;
-
     private LottoNumber(int number) {
         this.number = number;
     }
@@ -29,7 +28,6 @@ public class LottoNumber implements Comparable<LottoNumber> {
         validate(number);
         return CACHE.get(number);
     }
-
 
     private static void validate(int number) {
         if (number < LOTTO_MIN || number > LOTTO_MAX) {
