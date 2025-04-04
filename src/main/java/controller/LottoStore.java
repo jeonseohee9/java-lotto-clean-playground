@@ -29,7 +29,7 @@ public class LottoStore {
 
     private void run() {
         Money money = requestMoney();
-        List<Lotto> manualLottos = requestManualLottos();
+        List<Lotto> manualLottos = requestManualLottos(money);
         Lottos lottos = createLottos(money, manualLottos);
         printPurchaseResult(lottos);
 
@@ -41,8 +41,8 @@ public class LottoStore {
         return inputHandler.inputMoney();
     }
 
-    private List<Lotto> requestManualLottos() {
-        int manualCount = inputHandler.inputManualCount();
+    private List<Lotto> requestManualLottos(Money money) {
+        int manualCount = inputHandler.inputManualCount(money);
         return inputHandler.inputManualLottos(manualCount);
     }
 

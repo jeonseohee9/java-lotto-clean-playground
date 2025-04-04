@@ -30,14 +30,22 @@ public class InputHandler {
         }
     }
 
-    public int inputManualCount() {
+    public int inputManualCount(Money money) {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         String input = scanner.nextLine();
         try {
-            return Integer.parseInt(input.trim());
+            int count = Integer.parseInt(input.trim());
+            int maxCount = money.divideByUnit();
+
+            if (count > maxCount) {
+                System.out.println("입력값: " + input + " → 구매 금액으로는 최대 " + maxCount + "장까지 구매할 수 있습니다.");
+                return inputManualCount(money);
+            }
+
+            return count;
         } catch (Exception e) {
             System.out.println("입력값: " + input + " → 올바른 숫자를 입력해주세요.");
-            return inputManualCount();
+            return inputManualCount(money);
         }
     }
 
