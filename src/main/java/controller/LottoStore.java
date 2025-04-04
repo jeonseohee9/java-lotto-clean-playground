@@ -31,7 +31,7 @@ public class LottoStore {
         Money money = requestMoney();
         List<Lotto> manualLottos = requestManualLottos();
         Lottos lottos = createLottos(money, manualLottos);
-        printPurchaseResult(money, manualLottos.size(), lottos);
+        printPurchaseResult(lottos);
 
         WinningLotto winningLotto = requestWinningLotto();
         printLottoResult(lottos, winningLotto, money);
@@ -56,8 +56,9 @@ public class LottoStore {
         return lottoManager.createWinningLotto(winningNumbers, bonusNumber);
     }
 
-    private void printPurchaseResult(Money money, int manualCount, Lottos lottos) {
-        int autoCount = lottoManager.getAutoCount(money, manualCount);
+    private void printPurchaseResult(Lottos lottos) {
+        int manualCount = lottos.countManual();
+        int autoCount = lottos.countAuto();
         OutputHandler.printPurchaseResult(manualCount, autoCount, lottos.getLottos());
     }
 

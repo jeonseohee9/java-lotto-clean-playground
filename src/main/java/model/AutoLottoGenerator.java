@@ -37,6 +37,5 @@ public class AutoLottoGenerator {
                 .sorted()
                 .toList();
 
-        return new Lotto(selected);
-    }
+        return new Lotto(selected, LottoType.AUTO);    }
 }

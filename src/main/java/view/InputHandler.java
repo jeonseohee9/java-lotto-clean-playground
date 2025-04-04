@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import model.Lotto;
 import model.LottoNumber;
+import model.LottoType;
 import model.Money;
 import model.WinningLotto;
 
@@ -57,7 +58,7 @@ public class InputHandler {
             List<LottoNumber> numbers = Arrays.stream(line.split(","))
                     .map(s -> LottoNumber.valueOf(Integer.parseInt(s.trim())))
                     .collect(Collectors.toList());
-            return new Lotto(numbers);
+            return new Lotto(numbers, LottoType.MANUAL);
         } catch (Exception e) {
             System.out.println("입력값: " + line + " → 올바른 형식으로 다시 입력해주세요.");
             return readValidLotto();

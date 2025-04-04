@@ -31,6 +31,6 @@ public class LottoManager {
                 .toList();
 
         LottoNumber bonus = LottoNumber.valueOf(bonusNumber);
-        return new WinningLotto(new Lotto(numbers), bonus);
+        return new WinningLotto(new Lotto(numbers,null), bonus);
     }
 }

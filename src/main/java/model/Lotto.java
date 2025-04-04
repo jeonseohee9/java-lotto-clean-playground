@@ -10,10 +10,12 @@ public class Lotto {
     private static final int NUMBER_COUNT = 6;
 
     private final List<LottoNumber> numbers;
+    private final LottoType type;
 
-    public Lotto(List<LottoNumber> numbers) {
+    public Lotto(List<LottoNumber> numbers, LottoType type) {
         validate(numbers);
         this.numbers = numbers;
+        this.type = type;
     }
 
     private void validate(List<LottoNumber> numbers) {
@@ -35,5 +37,9 @@ public class Lotto {
 
     public List<LottoNumber> getNumbers() {
         return Collections.unmodifiableList(numbers);
+    }
+
+    public LottoType getType() {
+        return type;
     }
 }

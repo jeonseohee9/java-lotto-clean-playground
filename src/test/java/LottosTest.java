@@ -1,4 +1,5 @@
 import static java.util.Locale.LanguageRange.parse;
+import static model.LottoType.AUTO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ public class LottosTest {
                 LottoNumber.valueOf(1), LottoNumber.valueOf(2),
                 LottoNumber.valueOf(3), LottoNumber.valueOf(4),
                 LottoNumber.valueOf(5), LottoNumber.valueOf(6)
-        ));
+        ),AUTO);
         LottoNumber bonus = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(winning, bonus);
 
@@ -35,7 +36,7 @@ public class LottosTest {
                 .map(s -> LottoNumber.valueOf(Integer.parseInt(s.trim())))
                 .collect(Collectors.toList());
 
-        Lottos lottos = new Lottos(List.of(new Lotto(matchedNumbers)));
+        Lottos lottos = new Lottos(List.of(new Lotto(matchedNumbers,AUTO)));
         Map<Rank, Integer> result = lottos.countResult(winningLotto);
 
         assertEquals(1, result.get(expectedRank));

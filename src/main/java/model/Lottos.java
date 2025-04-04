@@ -44,7 +44,16 @@ public class Lottos {
                 .sum();
     }
 
+    public int countManual() {
+        return (int) lottos.stream().filter(lotto -> lotto.getType() == LottoType.MANUAL).count();
+    }
+
+    public int countAuto() {
+        return (int) lottos.stream().filter(lotto -> lotto.getType() == LottoType.AUTO).count();
+    }
+
     public List<Lotto> getLottos() {
         return List.copyOf(lottos);
     }
+
 }

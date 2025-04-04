@@ -1,3 +1,4 @@
+import static model.LottoType.AUTO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class WinningLottoTest {
                 LottoNumber.valueOf(1), LottoNumber.valueOf(2),
                 LottoNumber.valueOf(3), LottoNumber.valueOf(4),
                 LottoNumber.valueOf(5), LottoNumber.valueOf(6)
-        ));
+        ),AUTO);
         LottoNumber bonus = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(winning, bonus);
 
@@ -23,7 +24,7 @@ public class WinningLottoTest {
                 LottoNumber.valueOf(1), LottoNumber.valueOf(2),
                 LottoNumber.valueOf(3), LottoNumber.valueOf(4),
                 LottoNumber.valueOf(5), LottoNumber.valueOf(6)
-        ));
+        ),AUTO);
 
         Rank rank = winningLotto.match(matchLotto);
         assertEquals(Rank.SIX_MATCH, rank);
@@ -36,7 +37,7 @@ public class WinningLottoTest {
                         LottoNumber.valueOf(1), LottoNumber.valueOf(2),
                         LottoNumber.valueOf(3), LottoNumber.valueOf(4),
                         LottoNumber.valueOf(5), LottoNumber.valueOf(6)
-                )),
+                ),AUTO),
                 LottoNumber.valueOf(7)
         );
 
@@ -44,7 +45,7 @@ public class WinningLottoTest {
                 LottoNumber.valueOf(1), LottoNumber.valueOf(2),
                 LottoNumber.valueOf(3), LottoNumber.valueOf(4),
                 LottoNumber.valueOf(5), LottoNumber.valueOf(7)
-        ));
+        ),AUTO);
 
         assertEquals(Rank.FIVE_MATCH_BONUS, winningLotto.match(lotto));
     }
