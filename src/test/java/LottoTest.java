@@ -12,7 +12,7 @@ public class LottoTest {
 
     private List<LottoNumber> toLottoNumbers(Integer... numbers) {
         return List.of(numbers).stream()
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .collect(Collectors.toList());
     }
 
@@ -38,10 +38,10 @@ public class LottoTest {
 
     @Test
     void 로또_번호가_1에서_45를_벗어나면_예외처리한다() {
-        assertThatThrownBy(() -> new LottoNumber(0))
+        assertThatThrownBy(() -> LottoNumber.valueOf(0))
                 .isInstanceOf(IllegalArgumentException.class);
 
-        assertThatThrownBy(() -> new LottoNumber(46))
+        assertThatThrownBy(() -> LottoNumber.valueOf(46))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

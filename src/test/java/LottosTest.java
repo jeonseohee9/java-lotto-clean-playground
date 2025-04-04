@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import model.Lotto;
 import model.LottoNumber;
 import model.Lottos;
@@ -21,24 +22,22 @@ public class LottosTest {
             "'1,2,3,4,44,45', FOUR_MATCH",
             "'1,2,3,43,44,45', THREE_MATCH"
     })
-    void 등수_정확히_판별한다() {
+    void 등수_정확히_판별한다(String numbers, Rank expectedRank) {
         Lotto winning = new Lotto(List.of(
-                new LottoNumber(1), new LottoNumber(2),
-                new LottoNumber(3), new LottoNumber(4),
-                new LottoNumber(5), new LottoNumber(6)
+                LottoNumber.valueOf(1), LottoNumber.valueOf(2),
+                LottoNumber.valueOf(3), LottoNumber.valueOf(4),
+                LottoNumber.valueOf(5), LottoNumber.valueOf(6)
         ));
-        LottoNumber bonus = new LottoNumber(7);
+        LottoNumber bonus = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(winning, bonus);
 
-        Lotto matched = new Lotto(List.of(
-                new LottoNumber(1), new LottoNumber(2),
-                new LottoNumber(3), new LottoNumber(4),
-                new LottoNumber(5), new LottoNumber(6)
-        ));
+        List<LottoNumber> matchedNumbers = Arrays.stream(numbers.split(","))
+                .map(s -> LottoNumber.valueOf(Integer.parseInt(s.trim())))
+                .collect(Collectors.toList());
 
-        Lottos lottos = new Lottos(List.of(matched));
+        Lottos lottos = new Lottos(List.of(new Lotto(matchedNumbers)));
         Map<Rank, Integer> result = lottos.countResult(winningLotto);
 
-        assertEquals(1, result.get(Rank.SIX_MATCH));
+        assertEquals(1, result.get(expectedRank));
     }
 }

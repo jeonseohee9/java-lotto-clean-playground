@@ -33,9 +33,10 @@ public class AutoLottoGenerator {
         List<Integer> copy = new ArrayList<>(ALL_NUMBERS);
         Collections.shuffle(copy);
         List<LottoNumber> selected = copy.subList(0, NUMBER_COUNT).stream()
-                .map(LottoNumber::new)
-                .sorted((a, b) -> Integer.compare(a.getNumber(), b.getNumber()))
+                .map(LottoNumber::valueOf)
+                .sorted()
                 .toList();
+
         return new Lotto(selected);
     }
 }

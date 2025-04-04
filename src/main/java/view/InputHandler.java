@@ -20,17 +20,24 @@ public class InputHandler {
 
     public Money inputMoney() {
         System.out.println("구입금액을 입력해 주세요.");
+        String input = scanner.nextLine();
         try {
-            return new Money(Long.parseLong(scanner.nextLine().trim()));
+            return new Money(Long.parseLong(input.trim()));
         } catch (Exception e) {
-            System.out.println("올바른 금액을 입력해주세요.");
+            System.out.println("입력값: \"" + input + "\" → 올바른 금액을 입력해주세요.");
             return inputMoney();
         }
     }
 
     public int inputManualCount() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        return Integer.parseInt(scanner.nextLine().trim());
+        String input = scanner.nextLine();
+        try {
+            return Integer.parseInt(input.trim());
+        } catch (Exception e) {
+            System.out.println("입력값: \"" + input + "\" → 올바른 숫자를 입력해주세요.");
+            return inputManualCount();
+        }
     }
 
     public List<Lotto> inputManualLottos(int count) {
@@ -48,26 +55,37 @@ public class InputHandler {
         String line = scanner.nextLine();
         try {
             List<LottoNumber> numbers = Arrays.stream(line.split(","))
-                    .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
+                    .map(s -> LottoNumber.valueOf(Integer.parseInt(s.trim())))
                     .collect(Collectors.toList());
-
             return new Lotto(numbers);
         } catch (Exception e) {
-            System.out.println("올바른 형식으로 다시 입력해주세요.");
+            System.out.println("입력값: \"" + line + "\" → 올바른 형식으로 다시 입력해주세요.");
             return readValidLotto();
         }
     }
 
-    public WinningLotto inputWinningLotto() {
+    public List<Integer> inputWinningLotto() {
         System.out.println("지난주 당첨 번호를 입력해 주세요.");
+        String line = scanner.nextLine();
 
-        List<LottoNumber> numbers = Arrays.stream(scanner.nextLine().split(","))
-                .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
-                .collect(Collectors.toList());
+        try {
+            return Arrays.stream(line.split(","))
+                    .map(s -> Integer.parseInt(s.trim()))
+                    .toList();
+        } catch (Exception e) {
+            System.out.println("입력값: \"" + line + "\" → 다시 올바르게 입력해주세요.");
+            return inputWinningLotto();
+        }
+    }
 
+    public int inputBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
-        LottoNumber bonus = new LottoNumber(Integer.parseInt(scanner.nextLine().trim()));
-
-        return new WinningLotto(new Lotto(numbers), bonus);
+        String input = scanner.nextLine();
+        try {
+            return Integer.parseInt(input.trim());
+        } catch (Exception e) {
+            System.out.println("입력값: \"" + input + "\" → 다시 숫자를 입력해주세요.");
+            return inputBonusNumber();
+        }
     }
 }

@@ -25,10 +25,12 @@ public enum Rank {
     }
 
     public static Rank determine(int matchCount, boolean bonusMatch) {
-        return Arrays.stream(values())
-                .filter(rank -> rank.matchCount == matchCount && rank.matchBonus == bonusMatch)
-                .findFirst()
-                .orElse(NONE);
+        if (matchCount == 3) return THREE_MATCH;
+        if (matchCount == 4) return FOUR_MATCH;
+        if (matchCount == 5 && bonusMatch) return FIVE_MATCH_BONUS;
+        if (matchCount == 5) return FIVE_MATCH;
+        if (matchCount == 6) return SIX_MATCH;
+        return NONE;
     }
 
     public int getMatchCount() {

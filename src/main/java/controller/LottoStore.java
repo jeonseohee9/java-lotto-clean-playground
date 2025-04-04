@@ -1,62 +1,68 @@
 package controller;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import model.Lotto;
 import model.Lottos;
-import model.Rank;
 import model.WinningLotto;
 import view.InputHandler;
 import view.OutputHandler;
 import model.Money;
-import model.AutoLottoGenerator;
 
 public class LottoStore {
 
     private final InputHandler inputHandler;
+    private final LottoManager lottoManager;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         InputHandler inputHandler = new InputHandler(scanner);
-        new LottoStore(inputHandler).run();
+        LottoManager lottoManager = new LottoManager();
+
+        new LottoStore(inputHandler, lottoManager).run();
     }
 
-    public LottoStore(InputHandler inputHandler) {
+    public LottoStore(InputHandler inputHandler, LottoManager lottoManager) {
         this.inputHandler = inputHandler;
+        this.lottoManager = lottoManager;
     }
 
     private void run() {
-        Money money = inputHandler.inputMoney();
+        Money money = requestMoney();
+        List<Lotto> manualLottos = requestManualLottos();
+        Lottos lottos = createLottos(money, manualLottos);
+        printPurchaseResult(money, manualLottos.size(), lottos);
+
+        WinningLotto winningLotto = requestWinningLotto();
+        printLottoResult(lottos, winningLotto, money);
+    }
+
+    private Money requestMoney() {
+        return inputHandler.inputMoney();
+    }
+
+    private List<Lotto> requestManualLottos() {
         int manualCount = inputHandler.inputManualCount();
-        List<Lotto> manualLottos = inputHandler.inputManualLottos(manualCount);
-
-        Lottos lottos = generateLottos(money, manualCount, manualLottos);
-        printPurchaseResult(manualCount, lottos, money);
-
-        WinningLotto winningLotto = inputHandler.inputWinningLotto();
-        printStatistics(lottos, winningLotto, money);
+        return inputHandler.inputManualLottos(manualCount);
     }
 
-    private Lottos generateLottos(Money money, int manualCount, List<Lotto> manualLottos) {
-        int autoCount = money.divideByUnit() - manualCount;
-        List<Lotto> autoLottos = new AutoLottoGenerator().generate(autoCount);
-
-        List<Lotto> allLottos = Stream.concat(manualLottos.stream(), autoLottos.stream())
-                .collect(Collectors.toList());
-
-        return new Lottos(allLottos);
+    private Lottos createLottos(Money money, List<Lotto> manualLottos) {
+        return lottoManager.createLottos(money, manualLottos.size(), manualLottos);
     }
 
-    private void printPurchaseResult(int manualCount, Lottos lottos, Money money) {
-        int autoCount = money.divideByUnit() - manualCount;
+    private WinningLotto requestWinningLotto() {
+        List<Integer> winningNumbers = inputHandler.inputWinningLotto();
+        int bonusNumber = inputHandler.inputBonusNumber();
+        return lottoManager.createWinningLotto(winningNumbers, bonusNumber);
+    }
+
+    private void printPurchaseResult(Money money, int manualCount, Lottos lottos) {
+        int autoCount = lottoManager.getAutoCount(money, manualCount);
         OutputHandler.printPurchaseResult(manualCount, autoCount, lottos.getLottos());
     }
 
-    private void printStatistics(Lottos lottos, WinningLotto winningLotto, Money money) {
-        Map<Rank, Integer> result = lottos.countResult(winningLotto);
+    private void printLottoResult(Lottos lottos, WinningLotto winningLotto, Money money) {
+        var result = lottos.countResult(winningLotto);
         long totalPrize = lottos.calculateTotalPrize(winningLotto);
         double rate = money.calculateRate(totalPrize);
         OutputHandler.printStatistics(result, rate);
